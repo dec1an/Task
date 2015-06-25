@@ -1,0 +1,75 @@
+"""This is a basic, small-scale representation of what the program would perform,
+given proper API authentication (with a large database of photos and more coding knowledge). """
+
+# ** == Possible improvement
+
+s_tags = []
+# Blank search list
+    
+user_input = raw_input("Input tags to search (separate by commas): ").lower()
+# Tags entered by user
+
+s_tags = user_input.split(',')
+# Tags split at commas and entered into search list
+
+def remove_extraneous(group):
+# Makes letters lowercase, removes duplicate tags, extraneous characters
+    result = []
+    for i in group:
+    # Cycle through all tags in input
+        if i not in result:
+        # If current tag is not already in output list
+            for char in i:
+                j = i.strip("\'\"1234567890!@#$%^&*()_+-=~` ;:|/{}[]")
+                # Removes leading/trailing 'illegal' characters on strings
+                # **Does NOT remove inner characters
+                j = j.lower()
+            result.append(j)
+            # Adds tag to output list
+    return result
+
+class Photos(object):
+    def __init__(self, name, p_tags):
+        self.name = name
+        self.p_tags = [x.lower() for x in p_tags]
+        # Makes sure all tags are referenced in lowercase
+    def display_photo(self):
+        print self.name + " - Tagged: " + str(self.p_tags)
+
+print "Tags: " + " ".join(remove_extraneous(s_tags))
+print
+
+photo1 = Photos("Bonfire", ["fire", "warm", "Heat", "bonfire"])
+photo2 = Photos("Ducks", ['ducks', 'Cool', 'water', 'swimming'])
+photo3 = Photos("Snow-Tubing Slopes", ['snow', 'ice', 'cool', 'tubes'])
+photo4 = Photos("Hot Chocolate Sign", ['warm', 'coffee', 'ihop', 'chocolate'])
+# Descriptions of actual photos on my flickr profile (English project)
+# Just a couple of example photos
+
+all_pictures = [photo1, photo2, photo3, photo4]
+# List of all accessible photos for function to iterate through
+
+def produce_results(inputs):
+    pictures = []
+    for i in inputs:
+    # Cycle through all tags in input
+        for pic in all_pictures:
+        # Cycle through all pictures
+            for j in pic.p_tags:
+            # Cycle through all tags in pictures
+                if j == i and pic.name not in pictures:
+                # If a tag in input matches a tag in a picture
+                # & is not already in output
+                    pictures.append(pic.name)
+                    # Add name of picture to "pictures" list
+                    # **Could include link to photo, or image itself
+    return pictures
+    
+if produce_results(s_tags) == []:
+    print "No matches found:"
+    # If no pictures have tags that match your search, print message
+    # **If unrecognizable tag is entered first, error message shown.
+else:
+    print "Search results: " + ", ".join(produce_results(remove_extraneous(s_tags))) # Makes sure all tags are addressed
+
+
