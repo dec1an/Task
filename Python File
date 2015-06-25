@@ -1,5 +1,5 @@
-"""This is a basic, small-scale representation of what the program would perform,
-given proper API authentication (with a large database of photos and more coding knowledge). """
+"""This is a basic, small-scale representation of what the program would perform
+(without being given proper API authentication & more coding knowledge). """
 
 # ** == Possible improvement
 
